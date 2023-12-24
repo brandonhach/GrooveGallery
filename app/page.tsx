@@ -3,6 +3,7 @@ import sideBannerImg from './../public/Images/side-banner.jpg';
 import brand from './../public/Images/brand.png';
 import heroArt from '.././public/Images/hero-art.png';
 import ferrari from '.././public/Images/ferrari.jpg';
+import Link from 'next/link';
 
 export default function Home() {
 	return (
@@ -48,7 +49,9 @@ export default function Home() {
 				<div className='w-3/4 flex flex-col justify-center items-center'>
 					<div className='h-10 w-1/2 text-center flex items-center justify-center'>
 						<h3 className='pr-4'>Already have an account?</h3>
-						<button className='btn btn-outline rounded-full'>Sign in</button>
+						<Link href='/login'>
+							<button className='btn btn-outline rounded-full'>Sign in</button>
+						</Link>
 					</div>
 					<div className='w-1/2 h-3/4 border-2 bg-white border-gray-200 rounded-3xl m-4 flex flex-col justify-start items-center pt-6'>
 						<div className='flex justify-center flex-col items-center p-5'>
@@ -56,6 +59,12 @@ export default function Home() {
 							<p className='text-xs pt-2'>Join GrooveGallery to start exploring catalogs.</p>
 						</div>
 						<form action='' className='flex flex-col form-control w-full items-center pb-4'>
+							<label className='w-3/4'>
+								<div className='label text-sm'>
+									<span>Username</span>
+								</div>
+								<input type='text' placeholder='Type here' className='input input-bordered w-full' />
+							</label>
 							<label className='w-3/4'>
 								<div className='label text-sm'>
 									<span>Email</span>
@@ -77,9 +86,7 @@ export default function Home() {
 								Create account
 							</button>
 						</form>
-						<div className='p-4'>
-							<h3 className='text-2xl'>OR</h3>
-						</div>
+						<div className='divider'>OR</div>
 						<div className='flex flex-col gap-4 w-full justify-center items-center'>
 							<button className='btn rounded-full w-3/4'>Continue with Google</button>
 							<button className='btn rounded-full w-3/4'>Continue with Apple</button>
