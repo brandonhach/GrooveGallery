@@ -1,5 +1,7 @@
+from flask import session, request, jsonify, make_response
 from models.Client import Client
 from utilities.auth_utils import hash_password, auth_client
+from flask_jwt_extended import create_access_token
 
 class ClientService:
     def __init__(self, client_repository , bcrypt):
@@ -13,5 +15,8 @@ class ClientService:
         return new_user
     
     def authenticate_user(self, username, password):
-       return auth_client(self.client_repository.get_hashed_password(username), password, self.bcrypt)
+        if auth_client(self.client_repository.get_hashed_password(username), password, self.bcrypt):
+            access_token = create_access_token(identity=username)
+            return access_token, 200
+        return None
        

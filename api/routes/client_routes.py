@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify
 
 def create_client_blueprint(client_service):    
     client_blueprint = Blueprint('client_blueprint', __name__)
@@ -8,7 +8,8 @@ def create_client_blueprint(client_service):
         data = request.get_json()
         try:
             client_service.create_user(data['username'], data['email'], data['password'])
-            return jsonify({"message": "Registration successful"}), 200
+            access_token = client_service.authenticate_user(data['username'], data['password'])
+            return jsonify({"access_token": access_token, "message": "Registration successful"}), 200
         except Exception as e:
             return jsonify({"error": str(e)}), 400
     
@@ -16,21 +17,12 @@ def create_client_blueprint(client_service):
     def login():
         data = request.get_json()
         try:
-            session = client_service.authenticate_user(data['username'], data['password'])
-            if session:
-                return jsonify({"message": "Login successful"}), 200
+            access_token = client_service.authenticate_user(data['username'], data['password'])
+            if access_token:
+                return jsonify({"access_token": access_token, "message": "Login successful"}), 200
             else:
-                return jsonify({"message": "Invalid username or password"}), 401
+                return jsonify({"message": "Bad username or password"}), 401
         except Exception as e:
             return jsonify({"error": str(e)}), 400
         
     return client_blueprint
-        
-    
-    
-   
-# @client_blueprint.post('/login') 
-# def login():
-    
-
-    
