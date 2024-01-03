@@ -5,7 +5,7 @@ const gallery = () => {
 	return (
 		<>
 			<div className='w-screen h-screen flex justify-center items-center'>
-				<div className='w-5/6 h-full'>
+				<div className='w-4/6 h-full'>
 					<MasonGallery></MasonGallery>
 				</div>
 			</div>
