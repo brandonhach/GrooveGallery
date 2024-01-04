@@ -17,6 +17,7 @@ class ClientService:
     def authenticate_user(self, username, password):
         if auth_client(self.client_repository.get_hashed_password(username), password, self.bcrypt):
             access_token = create_access_token(identity=username)
-            return access_token, 200
+            client_data = self.client_repository.get_client_to_json(username)
+            return {"access_token": access_token, "client_data": client_data}, 200
         return None
        
