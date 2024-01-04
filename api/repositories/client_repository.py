@@ -21,6 +21,7 @@ class ClientRepository:
         
         if client:
             client_data = {
+                "client_id": client.client_id,
                 "username": client.username,
                 "email": client.email,
                 "date_created": client.date_created
