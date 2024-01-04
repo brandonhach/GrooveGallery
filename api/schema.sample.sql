@@ -1,5 +1,5 @@
 -- Client (intepret as User) table
-CREATE TABLE IF NOT EXISTS
+CREATE TABLE IF NOT EXISTS client
 (
     client_id     SERIAL          PRIMARY KEY,
     username      VARCHAR(36)     NOT NULL UNIQUE,
