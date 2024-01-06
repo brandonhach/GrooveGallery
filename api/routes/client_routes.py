@@ -9,7 +9,8 @@ def create_client_blueprint(client_service):
         try:
             client_service.create_user(data['username'], data['email'], data['password'])
             session_info = client_service.authenticate_user(data['username'], data['password'])
-            return jsonify({"session_info": session_info, "message": "Registration successful"}), 200
+            if session_info:
+                return session_info
         except Exception as e:
             return jsonify({"error": str(e)}), 400
     
@@ -19,7 +20,7 @@ def create_client_blueprint(client_service):
         try:
             session_info = client_service.authenticate_user(data['username'], data['password'])
             if session_info:
-                return jsonify({"session_info": session_info, "message": "Login successful"}), 200
+                return session_info
             else:
                 return jsonify({"message": "Bad username or password"}), 401
         except Exception as e:

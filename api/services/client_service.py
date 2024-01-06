@@ -1,7 +1,6 @@
 from flask import session, request, jsonify, make_response
 from models.Client import Client
 from utilities.auth_utils import hash_password, auth_client
-from flask_jwt_extended import create_access_token
 
 class ClientService:
     def __init__(self, client_repository , bcrypt):
@@ -12,12 +11,11 @@ class ClientService:
         hashed_password = hash_password(password, self.bcrypt)
         new_user = Client(username=username, email=email, password_hash=hashed_password)
         self.client_repository.add_client(new_user)
-        return new_user
+        return self.authenticate_user(username, password)
     
     def authenticate_user(self, username, password):
         if auth_client(self.client_repository.get_hashed_password(username), password, self.bcrypt):
-            access_token = create_access_token(identity=username)
             client_data = self.client_repository.get_client_to_json(username)
-            return {"access_token": access_token, "client_data": client_data}, 200
-        return None
+            return {"client_data": client_data}, 200
+        return None, jsonify({'message': 'User account not found'})
        
