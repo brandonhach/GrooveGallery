@@ -30,16 +30,8 @@ client_repository = ClientRepository(db.session)
 client_service = ClientService(client_repository, bcrypt)
 
 # Blueprints
-app.register_blueprint(create_client_blueprint(client_service), url_prefix='/api')
+app.register_blueprint(create_client_blueprint(client_service), url_prefix='/flask/api')
 
-@app.route("/api/healthchecker", methods=["GET"])
-def healthchecker():
-    try:
-        print("Database connected successfully.")
-    except Exception as e:
-        print("Failed to connect to the database.")
-        print(e)
-    return {"status": "success", "message": "Integrate Flask Framework with Next.js"}
 
 if __name__ == "__main__":
     app.run()
